@@ -5,11 +5,86 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import '../apis/ProductModel.dart';
+import '../apis/Seller.dart';
 import '../apis/orderModel.dart';
 import 'package:http/http.dart' as http;
 
 class UserApi {
 
+
+  static Future registerPhone(var phone, var otp) async {
+    final apiUrl = 'https://api.pehchankidukan.com/api/seller/register';
+
+    Map<String, dynamic> json = {
+      "phone":phone,
+      "otp":otp,
+    };
+    var uri = Uri.parse(apiUrl);
+    try {
+      final response = await http.post(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(json),
+      );
+
+      // if (response.statusCode == 201) {
+      // } else {
+      // }
+    } catch (e) {
+    }
+
+
+  }
+
+
+  //get seller data
+  static Future getSeller() async {
+    final json = {
+      "ownerName": "John Doe",
+      "password": "hashed_password_here",
+      "phone": "1234567890",
+      "businessType": "Retail",
+      "shopName": "John's Store",
+      "shopOpeningTime": "2023-09-18T08:00:00Z",
+      "shopClosingTime": "2023-09-18T08:00:00Z",
+      "landlineNumber": "4875834759",
+      "gstin": {
+        "gstinNo": "GSTIN123456",
+        "gstinImage": "gstin_image_url"
+      },
+      "fssai": {
+        "licenseNumber": "FSSAI123456",
+        "fssaiImage": "fssai_image_url"
+      },
+      "photo": "seller_photo_url",
+      "address": {
+        "addressOfShop": "Apt 456",
+        "city": "Example City",
+        "state": "Example State",
+        "pincode": "12345",
+        "location": "Latitude: 12.345, Longitude: 67.890"
+      },
+      "panCard": {
+        "panNo": "ABCDE1234F",
+        "panImage": "pan_card_image_url"
+      },
+      "bankDetails": {
+        "accountNo": "1234567890",
+        "ifscCode": "IFSC12345",
+        "bankName": "Example Bank",
+        "branchName": "Example Branch",
+        "passbookImage": "bank_passbook_image_url"
+      },
+      "marginCharged": 10.5,
+      "shopCategory": "Electronics",
+      "createdAt": "2023-09-18T08:00:00Z",
+      "updatedAt": "2023-09-19T09:00:00Z"
+    };
+    Seller seller = Seller.fromJson(json);
+    return seller;
+  }
 
   // get all orders API
   static Future fetchOrderData() async {
@@ -110,6 +185,37 @@ class UserApi {
       );
 
       // if (response.statusCode == 200) {
+      // } else {
+      // }
+    } catch (e) {
+    }
+  }
+
+  //update Product AP
+  static Future<void> updateProduct(Product product) async {
+    final apiUrl = 'https://api/seller/:sellerid/product';
+
+    final Map<String, dynamic> productJson = {
+      "productName": product.productName,
+      "category": product.category,
+      "image": product.image,
+      "description": product.description,
+      "quantityType": product.quantityType,
+      "mrpPrice": product.mrpPrice,
+      // "offerPrice": product.offerPrice,
+      "productType": product.productType,
+    };
+    var uri = Uri.parse(apiUrl);
+    try {
+      final response = await http.put(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(productJson),
+      );
+
+      // if (response.statusCode == 201) {
       // } else {
       // }
     } catch (e) {
