@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:e_commerce/home.dart';
 import 'package:e_commerce/manage_products.dart';
 import 'package:e_commerce/order_details.dart';
 import 'package:flutter/material.dart';
@@ -31,20 +30,13 @@ class _SellerDashboardState extends State<SellerDashboard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: InkWell(
-                onTap: (){
-                  print("token is printing");
-                  print(token);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard(token:token, id:id),));
-                },
-                child: Text(
-                  "PKD ",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Poppins',
-                    fontSize: 25,
-                      fontWeight: FontWeight.w700
-                  ),
+              child: Text(
+                "PKD ",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Poppins',
+                  fontSize: 25,
+                    fontWeight: FontWeight.w700
                 ),
               ),
             ),
@@ -572,7 +564,6 @@ class _SellerDashboardState extends State<SellerDashboard> {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else {
                       final List<Product>? data = snapshot.data;
-
                       return
                         Container(
                           child: ListView.builder(
